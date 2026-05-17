@@ -3,4 +3,5 @@
   <Project Path="SignsCreatorWeb.Domain/SignsCreatorWeb.Domain.csproj" Id="4113efa3-7204-410f-b927-e2f2ce47e23d" />
   <Project Path="SignsCreatorWeb.Infrastructure/SignsCreatorWeb.Infrastructure.csproj" Id="1c301c68-5a6e-40e2-91aa-29444f1650a9" />
   <Project Path="SignsCreatorWeb/SignsCreatorWeb.csproj" />
+  <Project Path="UIApp/UIApp.csproj" Id="9e2aa602-520e-4ed0-b3c1-1019403d145b" />
 </Solution>
