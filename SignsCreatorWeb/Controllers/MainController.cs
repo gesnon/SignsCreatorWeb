@@ -19,7 +19,7 @@ namespace SignsCreatorWeb.Controllers
         [HttpPost("RunTask")]
         public async Task<ActionResult> RunTask([FromBody] Command command)
         {
-            //Тестовый коммит 3
+            //Тестовый коммит для вытягивания
             return Ok();
         }
 
