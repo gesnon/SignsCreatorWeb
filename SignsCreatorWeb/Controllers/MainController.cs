@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SignsCreatorWeb.Application.Interfaces;
+using SignsCreatorWeb.Application.Models;
 using SignsCreatorWeb.Models;
 
 namespace SignsCreatorWeb.Controllers
@@ -8,33 +9,28 @@ namespace SignsCreatorWeb.Controllers
     //[Route("[controller]")]
     public class MainController : ControllerBase
     {
-        private readonly IKompasService _kompasService;
-        public MainController(IKompasService kompasService)
+        private readonly ITaskService _taskService;
+        public MainController(ITaskService taskService)
         {
-            _kompasService = kompasService;
-
+            _taskService = taskService;
         }
 
 
         [HttpPost("RunTask")]
         public async Task<ActionResult> RunTask([FromBody] Command command)
         {
-            //Тестовый коммит для вытягивания
-            return Ok();
+
+            if (!string.IsNullOrEmpty(command.Data))
+            {
+                int Id = await _taskService.CreateAsync(new Application.Models.Task { State=State.Open, Data = command.Data, Type= command.Type });
+                if (Id != 0)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest();
         }
-
-
-
-        [HttpPost("OpenKompas")]
-        public async Task<ActionResult> OpenKompas()
-        {
-            bool startKompas = _kompasService.OpenKompas();
-
-            return Ok();
-        }
-
-
-
 
     }
 }
