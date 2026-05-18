@@ -20,7 +20,6 @@ namespace SignsCreatorWeb.Controllers
         public async Task<ActionResult> RunTask([FromBody] Command command)
         {
             
-
             return Ok();
         }
 
