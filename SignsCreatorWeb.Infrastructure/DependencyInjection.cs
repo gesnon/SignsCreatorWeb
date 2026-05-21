@@ -19,6 +19,7 @@ namespace SignsCreatorWeb.Infrastructure
             services.AddScoped<ISignsCreatorWebContext>(provider => provider.GetRequiredService<SignsCreatorWebContext>());
             services.AddScoped<DbInitializer>();
             services.AddScoped<ITaskService, TaskService>();
+            services.AddSingleton<IRabbitMQService, RabbitMQService>();
 
             return services;
         }

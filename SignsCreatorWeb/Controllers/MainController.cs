@@ -10,9 +10,11 @@ namespace SignsCreatorWeb.Controllers
     public class MainController : ControllerBase
     {
         private readonly ITaskService _taskService;
-        public MainController(ITaskService taskService)
+        private readonly IRabbitMQService _rabbitmqService;
+        public MainController(ITaskService taskService, IRabbitMQService rabbitmqService)
         {
             _taskService = taskService;
+            _rabbitmqService = rabbitmqService;
         }
 
 
@@ -22,9 +24,12 @@ namespace SignsCreatorWeb.Controllers
 
             if (!string.IsNullOrEmpty(command.Data))
             {
-                int Id = await _taskService.CreateAsync(new Application.Models.Task { State=State.Open, Data = command.Data, Type= command.Type });
+
+
+                int Id = await _taskService.CreateAsync(new Application.Models.Task { State = State.Open, Data = command.Data, Type = command.Type });
                 if (Id != 0)
                 {
+                    _rabbitmqService.SendMessageAsync(command.Data, "signsCreaterWebQueue");
                     return Ok();
                 }
             }
